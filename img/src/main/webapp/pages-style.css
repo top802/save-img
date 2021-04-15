@@ -1,0 +1,12 @@
+body {
+    background-color: black;
+    margin: 0 auto;
+    padding-bottom: 2.5rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.login-container {
+     margin: 0 auto;
+     width: 100%;
+     background-color: black;
+
+}
