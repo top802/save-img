@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import top.example.img.auth.repository.UserRepository;
 import top.example.img.auth.service.UserService;
 
 @Controller
@@ -13,7 +15,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserRepository userRepository
+    private UserRepository userRepository;
 
 
     @GetMapping("/pages/login")
@@ -21,6 +23,12 @@ public class UserController {
         if (error != null)
             model.addAttribute("error", "Your email and password is invalid");
         return "login";
+    }
+
+    @GetMapping("/pages/sign-up")
+    public String signUp(@RequestParam(name="name", required=false, defaultValue="SignUP") String name, Model model){
+        model.addAttribute("name", name);
+        return "signUp";
     }
 
 }

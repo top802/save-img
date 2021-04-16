@@ -25,16 +25,4 @@ public class MappingPagesController {
         return "home";
     }
 
-    @GetMapping("/pages/login")
-    public String login(@RequestParam(name="name", required=false, defaultValue="LOGIN") String name, Model model){
-        model.addAttribute("name", name);
-        return "login";
-    }
-
-    @GetMapping("/pages/sign-up")
-    public String signUp(@RequestParam(name="name", required=false, defaultValue="SignUP") String name, Model model){
-        model.addAttribute("name", name);
-        return "signUp";
-    }
-
 }
