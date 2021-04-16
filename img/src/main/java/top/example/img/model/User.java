@@ -1,4 +1,4 @@
-package top.example.img.entity;
+package top.example.img.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
