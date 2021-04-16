@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MappingPagesController {
-    @GetMapping("/pages/forgot-password")
-    public String forgotPassword(@RequestParam(name="name", required=false, defaultValue="PASSWORD") String name, Model model){
-        model.addAttribute("name", name);
-        return "forgotPassword";
-    }
 
     @GetMapping("/pages/history")
     public String history(@RequestParam(name="name", required=false, defaultValue="HISTORY") String name, Model model){

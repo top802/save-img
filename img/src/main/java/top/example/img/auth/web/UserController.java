@@ -18,17 +18,24 @@ public class UserController {
     private UserRepository userRepository;
 
 
-    @GetMapping("/pages/login")
+    @GetMapping("/pages//login")
     public String login(Model model, String error){
         if (error != null)
             model.addAttribute("error", "Your email and password is invalid");
         return "login";
     }
 
-    @GetMapping("/pages/sign-up")
-    public String signUp(@RequestParam(name="name", required=false, defaultValue="SignUP") String name, Model model){
-        model.addAttribute("name", name);
+    @GetMapping("/pages/signup")
+    public String signUp(Model model, String error){
+        if (error != null)
+            model.addAttribute("error", "Your email and password is invalid");
         return "signUp";
+    }
+
+    @GetMapping("/pages/forgot-password")
+    public String forgotPassword(@RequestParam(name="name", required=false, defaultValue="PASSWORD") String name, Model model){
+        model.addAttribute("name", name);
+        return "forgotPassword";
     }
 
 }
