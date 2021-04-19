@@ -11,5 +11,6 @@ CREATE TABLE user (
   name varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
   password varchar(50) DEFAULT NULL,
+  confirm_password varchar(50) DEFAULT NULL,
   created_date DATETIME DEFAULT NULL,
   PRIMARY KEY (id) );
