@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import top.example.img.auth.model.User;
 import top.example.img.auth.repository.UserRepository;
 import top.example.img.auth.service.UserService;
+import top.example.img.auth.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/pages")
@@ -21,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserValidator userValidator;
 
 
     @GetMapping("/login")
@@ -40,7 +45,38 @@ public class UserController {
     public String signUp(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model, HttpServletRequest request){
         System.out.println("UserForm " + userForm.getEmail() + userForm.getName() + userForm.getPassword() + userForm.getConfirmPassword());
 
-        return "signUp";
+        userValidator.validate(userForm, bindingResult);
+
+
+        User isUserExists = userService.findByEmail(userForm.getEmail());
+        if (isUserExists != null){
+            model.addAttribute("alreadyRegisteredMessage", "Oops!  There is already a user registered with the email provided");
+            bindingResult.reject("email");
+            return "registration";
+        }
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("Errors " + bindingResult.hasErrors());
+            return "registration";
+        } else {
+            userForm.setConfirmationToken(UUID.randomUUID().toString());
+
+            userService.save(userForm);
+
+//            String appUrl = request.getScheme() + "://" + request.getServerName();
+//
+//            SimpleMailMessage registrationEmail = new SimpleMailMessage();
+//            registrationEmail.setTo(userForm.getEmail());
+//            registrationEmail.setSubject("Registration Confirmation");
+//            registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
+//                    + appUrl + "/confirm?token=" + userForm.getConfirmationToken());
+//            registrationEmail.setFrom("noreply@domain.com");
+//            emailService.sendEmail(registrationEmail);
+//            model.addAttribute("confirmationMessage", "A confirmation e-mail has been sent to " + userForm.getEmail());
+        }
+
+
+        return "redirect:/login";
     }
 
     @GetMapping("/forgot-password")

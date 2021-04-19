@@ -11,7 +11,13 @@ import java.util.Date;
 @Service
 public class UserServiceImpl implements UserService{
 
+
     private UserRepository userRepository;
+
+    @Autowired
+    public void UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User findByEmail(String email) {

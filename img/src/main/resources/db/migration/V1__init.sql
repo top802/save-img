@@ -13,4 +13,6 @@ CREATE TABLE user (
   password varchar(50) DEFAULT NULL,
   confirm_password varchar(50) DEFAULT NULL,
   created_date DATETIME DEFAULT NULL,
+  reset_token varchar(256) DEFAULT NULL,
+  confirmation_token varchar(256) DEFAULT NULL,
   PRIMARY KEY (id) );
