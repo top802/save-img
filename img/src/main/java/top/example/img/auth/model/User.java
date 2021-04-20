@@ -32,6 +32,10 @@ public class User {
     @Column(name = "reset_token")
     private String resetToken;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     public String getConfirmationToken() {
         return confirmationToken;
     }

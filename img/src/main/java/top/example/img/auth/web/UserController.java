@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import top.example.img.auth.jwt.JwtProvider;
 import top.example.img.auth.model.User;
 import top.example.img.auth.repository.UserRepository;
 import top.example.img.auth.service.UserService;
@@ -43,6 +44,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signUp(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model, HttpServletRequest request){
+
         System.out.println("UserForm " + userForm.getEmail() + userForm.getName() + userForm.getPassword() + userForm.getConfirmPassword());
 
         userValidator.validate(userForm, bindingResult);
@@ -52,14 +54,16 @@ public class UserController {
         if (isUserExists != null){
             model.addAttribute("alreadyRegisteredMessage", "Oops!  There is already a user registered with the email provided");
             bindingResult.reject("email");
-            return "registration";
+            return "signUp";
         }
 
         if (bindingResult.hasErrors()) {
             System.out.println("Errors " + bindingResult.hasErrors());
-            return "registration";
+            return "signUp";
         } else {
-            userForm.setConfirmationToken(UUID.randomUUID().toString());
+
+
+            userForm.setConfirmationToken(JwtProvider.generateToken(userForm.getEmail()));
 
             userService.save(userForm);
 
@@ -76,7 +80,7 @@ public class UserController {
         }
 
 
-        return "redirect:/login";
+        return "redirect:/pages/login";
     }
 
     @GetMapping("/forgot-password")
