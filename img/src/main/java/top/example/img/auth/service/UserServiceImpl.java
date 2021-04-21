@@ -7,6 +7,7 @@ import top.example.img.auth.model.User;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -22,6 +23,17 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User findByConfirmationToken(String confirmationToken) {
+        return userRepository.findByConfirmationToken(confirmationToken);
+
+    }
+
+    @Override
+    public Optional<User> findUserByResetToken(String resetToken) {
+        return Optional.empty();
     }
 
     @Override
