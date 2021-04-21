@@ -20,6 +20,7 @@ CREATE TABLE user (
   created_date DATETIME DEFAULT NULL,
   reset_token varchar(256) DEFAULT NULL,
   confirmation_token varchar(256) DEFAULT NULL,
+  enabled tinyint(1) DEFAULT 0,
   role_id bigint(20),
   FOREIGN KEY(role_id) REFERENCES role (id)
 );

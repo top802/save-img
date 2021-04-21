@@ -36,6 +36,13 @@ public class UserController {
         return "login";
     }
 
+//    @PostMapping("/login")
+//    public AuthResponse auth(@RequestBody AuthRequest request) {
+//        User userEntity = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+//        String token = jwtProvider.generateToken(userEntity.getLogin());
+//        return new AuthResponse(token);
+//    }
+
     @GetMapping("/signup")
     public String signUp(Model model, String error){
         model.addAttribute("userForm", new User());

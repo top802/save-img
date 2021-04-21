@@ -1,5 +1,7 @@
 package top.example.img.auth.model;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Date;
@@ -24,6 +26,7 @@ public class User {
     private String confirmPassword;
 
     @Column(name = "created_date")
+    @CreatedDate
     private Date createdDate;
 
     @Column(name = "confirmation_token")
@@ -31,6 +34,16 @@ public class User {
 
     @Column(name = "reset_token")
     private String resetToken;
+
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -90,5 +103,21 @@ public class User {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -1,6 +1,7 @@
 package top.example.img.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import top.example.img.auth.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import top.example.img.auth.model.User;
@@ -12,8 +13,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService{
 
-
+    @Autowired
     private UserRepository userRepository;
+
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public void UserService(UserRepository userRepository) {
@@ -23,17 +27,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public User findByConfirmationToken(String confirmationToken) {
-        return userRepository.findByConfirmationToken(confirmationToken);
-
-    }
-
-    @Override
-    public Optional<User> findUserByResetToken(String resetToken) {
-        return Optional.empty();
     }
 
     @Override
@@ -49,4 +42,19 @@ public class UserServiceImpl implements UserService{
 //        user.setCreatedOn(new Date());
         userRepository.save(user);
     }
+
+    public User findByLogin(String login) {
+        return userRepository.findByEmail(login);
+    }
+
+    public User findByLoginAndPassword(String login, String password) {
+//        User userEntity = findByLogin(login);
+//        if (userEntity != null) {
+//            if (passwordEncoder.matches(password, userEntity.getPassword())) {
+//                return userEntity;
+//            }
+//        }
+        return null;
+    }
+
 }
